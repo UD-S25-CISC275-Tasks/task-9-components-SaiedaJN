@@ -1,10 +1,3 @@
-// import React, { useState } from "react";
-// import { Button } from "react-bootstrap";
-
-// export function CycleHoliday(): React.JSX.Element {
-//     return <div>Cycle Holiday</div>;
-// }
-
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
@@ -42,10 +35,18 @@ export function CycleHoliday(): React.JSX.Element {
     return (
         <div>
             <h3>Holiday: {holiday}</h3>
-            <Button onClick={() => setHoliday(alphabeticalOrder[holiday])}>
+            <Button 
+                onClick={() => {
+                    setHoliday(alphabeticalOrder[holiday]);
+                }}
+            >
                 Advance by Alphabet
             </Button>
-            <Button onClick={() => setHoliday(yearOrder[holiday])}>
+            <Button 
+                onClick={() => {
+                    setHoliday(yearOrder[holiday]);
+                }}
+            >
                 Advance by Year
             </Button>
         </div>
