@@ -12,34 +12,35 @@ export function d6(): number {
 }
 
 export function TwoDice(): React.JSX.Element {
-
-    //initila values are different
+    // Initial values are different
     let intileft = d6();
     let intiright = d6();
-    while (intileft === intiright){
+    while (intileft === intiright) {
         intiright = d6();
     }
 
-    //2States
-    const [leftDie, setleftDie]= useState<number>(intileft);
-    const [righDie, setrighDie]= useState<number>(intiright);
+    // States for both dice
+    const [leftDie, setLeftDie] = useState<number>(intileft);
+    const [rightDie, setRightDie] = useState<number>(intiright);
 
-    //Determine lose / win
+    // Determine lose / win
     let message = "";
-    if(leftDie === righDie){
-        message = leftDie ? "Lose": "Win"
+    if (leftDie === rightDie) {
+        message = leftDie === 1 ? "Lose" : "Win";
     }
 
-    return <div>
-        <h3>Two Dice</h3>
-        <div> 
-            <span data-testid = "left-die">{leftDie}</span> {" - "} 
-              <span data-testid = "right-die">{righDie}</span>
-        </div>
+    return (
         <div>
-            <Button onClick={() => setleftDie(d6())}>Roll Left</Button>
-            <Button onClick={() => setrighDie(d6())}>Roll Right</Button>
+            <h3>Two Dice</h3>
+            <div>
+                <span data-testid="left-die">{leftDie}</span> {" - "}
+                <span data-testid="right-die">{rightDie}</span>
+            </div>
+            <div>
+                <Button onClick={() => { setLeftDie(d6()); }}>Roll Left</Button>
+                <Button onClick={() => { setRightDie(d6()); }}>Roll Right</Button>
+            </div>
+            {message && <p>{message}</p>}
         </div>
-        {message && <p>{message}</p>}
-        </div>;
+    );
 }

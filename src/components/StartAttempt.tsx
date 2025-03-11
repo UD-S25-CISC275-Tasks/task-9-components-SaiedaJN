@@ -3,18 +3,36 @@ import { Button } from "react-bootstrap";
 
 export function StartAttempt(): React.JSX.Element {
     const [attempts, setAttempts] = useState<number>(4);
-    const [inProgress, setinProgress] = useState<Boolean>(false);
+    const [inProgress, setInProgress] = useState<boolean>(false);
 
-
-
-    return (<div>
-        <h3>Attempts Remaining: {attempts}</h3>
-        <Button onClick={()=> {setinProgress(true); setAttempts(attempts-1)}}
-            disabled={inProgress||attempts === 0}> Start Quiz</Button>
-        <Button onClick={()=> setinProgress (false)} disabled={!inProgress} > Stop Quiz </Button>
-        <Button onClick={()=> setAttempts(attempts+1)} disabled ={inProgress}> Mulligan</Button>
-        </div>);
-
-
-    
+    return (
+        <div>
+            <h3>Attempts Remaining: {attempts}</h3>
+            <Button
+                onClick={() => {
+                    setInProgress(true);
+                    setAttempts(attempts - 1);
+                }}
+                disabled={inProgress || attempts === 0}
+            >
+                Start Quiz
+            </Button>
+            <Button
+                onClick={() => {
+                    setInProgress(false);
+                }}
+                disabled={!inProgress}
+            >
+                Stop Quiz
+            </Button>
+            <Button
+                onClick={() => {
+                    setAttempts(attempts + 1);
+                }}
+                disabled={inProgress}
+            >
+                Mulligan
+            </Button>
+        </div>
+    );
 }
