@@ -11,22 +11,23 @@ const PEOPLE = [
 ];
 
 export function ChooseTeam(): React.JSX.Element {
+    //{PEOPLE.map((option: string) => (
     const [team, setTeam] = useState<string[]>([]);
 
     function chooseMember(newMember: string) {
-        // Use a functional update to ensure the latest state is used.
-        setTeam((prevTeam) => {
-            if (!prevTeam.includes(newMember)) {
-                return [...prevTeam, newMember];
-            }
-            return prevTeam;
-        });
+        
+        !team.includes(newMember)
+        ? setTeam([...team, newMember])
+        : null;
     }
 
     function clearTeam() {
+        
         setTeam([]);
+        
     }
 
+    
     return (
         <div>
             <h3>Choose Team</h3>
