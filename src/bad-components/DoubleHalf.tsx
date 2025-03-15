@@ -2,15 +2,39 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { useDoubleHalfState } from "./DoubleHalfState";
 
-function Doubler({ dhValue, setDhValue }: { dhValue: number; setDhValue: (val: number) => void }): React.JSX.Element {
+function Doubler({
+    dhValue,
+    setDhValue,
+}: {
+    dhValue: number;
+    setDhValue: (val: number) => void;
+}): React.JSX.Element {
     return (
-        <Button onClick={() => setDhValue(dhValue * 2)}>Double</Button>
+        <Button
+            onClick={() => {
+                setDhValue(dhValue * 2);
+            }}
+        >
+            Double
+        </Button>
     );
 }
 
-function Halver({ dhValue, setDhValue }: { dhValue: number; setDhValue: (val: number) => void }): React.JSX.Element {
+function Halver({
+    dhValue,
+    setDhValue,
+}: {
+    dhValue: number;
+    setDhValue: (val: number) => void;
+}): React.JSX.Element {
     return (
-        <Button onClick={() => setDhValue(dhValue / 2)}>Halve</Button>
+        <Button
+            onClick={() => {
+                setDhValue(dhValue / 2);
+            }}
+        >
+            Halve
+        </Button>
     );
 }
 
