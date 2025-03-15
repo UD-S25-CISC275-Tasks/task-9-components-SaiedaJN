@@ -34,7 +34,7 @@ export function ChooseTeam(): React.JSX.Element {
                         <div key={option} style={{ marginBottom: "4px" }}>
                             Add{" "}
                             <Button
-                                onClick={() => chooseMember(option)}
+                                onClick={() => { chooseMember(option); }}
                                 size="sm"
                             >
                                 {option}
