@@ -2,7 +2,6 @@ import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
 import { duplicateQuestion } from "./objects";
 
-
 /**
  * Consumes an array of questions and returns a new array with only the questions
  * that are `published`.
@@ -15,16 +14,20 @@ export function getPublishedQuestions(questions: Question[]): Question[] {
  * Consumes an array of questions and returns a new array of only the questions that are
  * considered "non-empty". An empty question has an empty string for its `body` and
  * `expected`, and an empty array for its `options`.
- * 
- * 1. empty array should be deleted. 
+ *
+ * 1. empty array should be deleted.
  * body, expected, and option are empty
  */
 export function getNonEmptyQuestions(questions: Question[]): Question[] {
-//The filter() method keeps elements where the callback function returns true
-    return questions.filter((question)=> 
-        !(question.body === "" && 
-        question.expected === "" && 
-        question.options.length === 0));
+    //The filter() method keeps elements where the callback function returns true
+    return questions.filter(
+        (question) =>
+            !(
+                question.body === "" &&
+                question.expected === "" &&
+                question.options.length === 0
+            ),
+    );
 }
 
 /***
@@ -33,7 +36,7 @@ export function getNonEmptyQuestions(questions: Question[]): Question[] {
  */
 export function findQuestion(
     questions: Question[],
-    id: number
+    id: number,
 ): Question | null {
     return questions.find((question) => question.id === id) || null;
 }
@@ -51,23 +54,25 @@ export function removeQuestion(questions: Question[], id: number): Question[] {
  * questions, as an array.
  */
 export function getNames(questions: Question[]): string[] {
-    return questions.map((question)=> question.name);
+    return questions.map((question) => question.name);
 }
 
 /***
  * Consumes an array of questions and returns the sum total of all their points added together.
  */
 export function sumPoints(questions: Question[]): number {
-
-    return questions.reduce((count , question) => count + question.points, 0); 
+    return questions.reduce((count, question) => count + question.points, 0);
 }
 
 /***
  * Consumes an array of questions and returns the sum total of the PUBLISHED questions.
  */
 export function sumPublishedPoints(questions: Question[]): number {
-    return questions.reduce((count, question) => (question.published ? count + question.points : count ), 0);
-
+    return questions.reduce(
+        (count, question) =>
+            question.published ? count + question.points : count,
+        0,
+    );
 }
 
 /***
@@ -89,7 +94,10 @@ id,name,options,points,published
  */
 export function toCSV(questions: Question[]): string {
     let header = "id,name,options,points,published";
-    let rows = questions.map((question) => `${question.id},${question.name},${question.options.length},${question.points},${question.published}`);
+    let rows = questions.map(
+        (question) =>
+            `${question.id},${question.name},${question.options.length},${question.points},${question.published}`,
+    );
     return [header, ...rows].join("\n");
 }
 
@@ -100,10 +108,11 @@ export function toCSV(questions: Question[]): string {
  */
 export function makeAnswers(questions: Question[]): Answer[] {
     return questions.map((question) => ({
-        questionId : question.id , 
-        text : "", 
-        submitted : false, 
-        correct : false}));
+        questionId: question.id,
+        text: "",
+        submitted: false,
+        correct: false,
+    }));
 }
 
 /***
@@ -111,7 +120,7 @@ export function makeAnswers(questions: Question[]): Answer[] {
  * each question is now published, regardless of its previous published status.
  */
 export function publishAll(questions: Question[]): Question[] {
-    return questions.map((question) => ({...question, published : true}));
+    return questions.map((question) => ({ ...question, published: true }));
 }
 
 /***
@@ -120,7 +129,7 @@ export function publishAll(questions: Question[]): Question[] {
  */
 export function sameType(questions: Question[]): boolean {
     //return questions.length === 0 ? true : questions.every((question)=> question.type === questions[0].type);
-    return questions.every((question)=> question.type === questions[0].type);
+    return questions.every((question) => question.type === questions[0].type);
 }
 
 /***
@@ -128,8 +137,6 @@ export function sameType(questions: Question[]): boolean {
  * except that a blank question has been added onto the end. Reuse the `makeBlankQuestion`
  * you defined in the `objects.ts` file.
  */
-
-
 
 export function makeBlankQuestion(
     id: number,
@@ -157,7 +164,6 @@ export function addNewQuestion(
     return [...questions, makeBlankQuestion(id, name, type)];
 }
 
-
 /***
  * Consumes an array of Questions and produces a new array of Questions, where all
  * the Questions are the same EXCEPT for the one with the given `targetId`. That
@@ -166,9 +172,11 @@ export function addNewQuestion(
 export function renameQuestionById(
     questions: Question[],
     targetId: number,
-    newName: string
+    newName: string,
 ): Question[] {
-    return questions.map((question) => question.id === targetId ? {...question, name:newName} : question);
+    return questions.map((question) =>
+        question.id === targetId ? { ...question, name: newName } : question,
+    );
 }
 
 /***
@@ -181,10 +189,20 @@ export function renameQuestionById(
 export function changeQuestionTypeById(
     questions: Question[],
     targetId: number,
-    newQuestionType: QuestionType
+    newQuestionType: QuestionType,
 ): Question[] {
-    return questions.map((question)=> question.id === targetId ? 
-    {...question, type : newQuestionType, options: newQuestionType !== "multiple_choice_question" ?[] : question.options,} : question);
+    return questions.map((question) =>
+        question.id === targetId ?
+            {
+                ...question,
+                type: newQuestionType,
+                options:
+                    newQuestionType !== "multiple_choice_question" ?
+                        []
+                    :   question.options,
+            }
+        :   question,
+    );
 }
 
 /**
@@ -197,7 +215,6 @@ export function changeQuestionTypeById(
  * Remember, if a function starts getting too complicated, think about how a helper function
  * can make it simpler! Break down complicated tasks into little pieces.
  */
-
 
 function updateOptions(
     options: string[],
@@ -233,15 +250,12 @@ export function editOption(
     );
 }
 
-
-
 /***
  * Consumes an array of questions, and produces a new array based on the original array.
  * The only difference is that the question with id `targetId` should now be duplicated, with
  * the duplicate inserted directly after the original question. Use the `duplicateQuestion`
  * function you defined previously; the `newId` is the parameter to use for the duplicate's ID.
  */
-
 
 export function duplicateQuestionInArray(
     questions: Question[],
@@ -257,5 +271,3 @@ export function duplicateQuestionInArray(
             ]
         );
 }
-
-
